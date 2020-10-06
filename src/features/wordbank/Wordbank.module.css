@@ -1,0 +1,33 @@
+#Wordbank {
+  width: 50%;
+  height: 40vh;
+  margin: 5vh;
+}
+
+.mainText {
+  font-size: 3rem;
+  margin: 0.2rem;
+}
+
+.secondaryText {
+
+}
+
+.list {
+  text-align: left;
+  width: 30%;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.button {
+  font-size: 1.5rem;
+  padding: 0.5rem;
+  background-color: aliceblue;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: blanchedalmond;
+}
+
