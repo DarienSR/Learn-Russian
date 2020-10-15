@@ -1,17 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   highlight, 
   selectKey,
-  answer, 
+  userAnswer, 
   keyboardType,
-  subtractFromAnswer,
   toggleKeyboard,
   resetAnswer
 } from "./keyboardSlice";
 
 import {
-  validate
+  validate,
+  Answer
 } from "../wordbank/wordbankSlice"
 
 
@@ -21,29 +21,30 @@ export function Keyboard() {
   const dispatch = useDispatch();
   const currentKey = useSelector(selectKey);
   const KeyboardType = useSelector(keyboardType);
-  const displayAnswer = useSelector(answer).join(''); // takes the array, joins it and removes the commas. ['h','i'] -> hi
+  const answer = useSelector(Answer);
   const layout = CreateKeyboard();
-  
-  const handleKeyDown = (event) => {
-    window.onkeydown = null; // take away eventhandler on key down while processing key press. Prevents multiple firing
-    const eventKey = event.key;
-    HandleSpecialKeys(event, dispatch, displayAnswer);
-    DetermineLetter(eventKey, layout, dispatch);
-  }
+  let userInput = useSelector(userAnswer);
+
+  function useInput({ type /*...*/ }) {
+    let [value, setValue] = useState("");
+    // update answer and highlight most recently pressed key
+    const input = <input id={styles.input} value={userInput} onChange={e => dispatch(highlight(e.target.value))} type={type} />;
+
+
+    // check to see if input is correct.
+    if(userInput === answer) {
+      dispatch(validate(userInput));
+      // reset input to blank
+      dispatch(resetAnswer());
+    }
+    return [value, input];
+  }  
 
   const handleKeyboardToggle = () => {
     dispatch(toggleKeyboard());
   }
 
-  // Prevents multiple firing of keypress
-  document.onkeyup = function() {
-    handleKeyDown();
-  };
-  
-  // Prevents multiple firing of keypress
-  document.onkeyup = function() {
-     window.onkeydown = handleKeyDown;
-  };
+
 
   const keys = layout.map((row) =>
     <div 
@@ -63,10 +64,15 @@ export function Keyboard() {
     </div>
   );
 
+
+  const [, ansInput] = useInput({ type: "text" });
+
   return (
     <div>
-      <input className={styles.display} value={ displayAnswer } />
-      <p className={styles.note}>Type Slow. Currently, typing fast will not register input.</p>
+      <div>
+        {ansInput}
+      </div>
+
       <div>
         { keys }
       </div>
@@ -79,36 +85,7 @@ export function Keyboard() {
 // -------------------------
 // ---  HELPER FUNCTIONS ---
 // -------------------------
-function HandleSpecialKeys(event, dispatch, displayAnswer) {
-  const BACKSPACE = 8;
-  const SPACE = 32;
-  const ENTER = 13;
-  switch(event.keyCode) {
-    case BACKSPACE:
-      dispatch(subtractFromAnswer());
-      break;
-    case SPACE:
-      dispatch(highlight(" "));
-      break;
-    case ENTER:
-      dispatch(validate(displayAnswer));
-      dispatch(resetAnswer());
-      break;
-    default:
-      break;
-  }
-}
 
-function DetermineLetter(eventKey, layout, dispatch) {
-  for(let row = 0; row < layout.length; row++) {
-    for(let key = 0; key < layout[row].length; key++) {
-      if(eventKey.toUpperCase() === layout[row][key].russian || eventKey.toUpperCase() === layout[row][key].english) {
-        dispatch(highlight(eventKey));
-        return;
-      }
-    }
-  }
-}
 
 function DetermineKeyboardLayout(english, russian, className, KeyboardType) {
   switch(KeyboardType) {

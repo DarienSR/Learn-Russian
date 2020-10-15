@@ -20,7 +20,7 @@
 .display {
   margin: 2rem auto;
   font-size: 3rem;
-  color: red;
+  color: rgb(20, 17, 17);
   border-bottom: 2px solid black;
 }
 
@@ -31,4 +31,11 @@
 .note {
   font-size: 1rem;
   margin: 0;
+}
+
+#input {
+  font-size: 4rem;
+  border: none;
+  border-bottom: 1rem black solid;
+  outline: none;
 }

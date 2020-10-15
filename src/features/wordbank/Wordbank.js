@@ -10,6 +10,8 @@ import {
   Mode
 } from "./wordbankSlice";
 
+import { resetAnswer } from "../keyboard/keyboardSlice";
+
 export function Wordbank() {
   const dispatch = useDispatch();
   const set = useSelector(Set);
@@ -23,6 +25,8 @@ export function Wordbank() {
       dispatch(UpdateMode(1))
     if(e.target.textContent === "English to Russian")
       dispatch(UpdateMode(2))
+
+    dispatch(resetAnswer());
   }
 
   let display;
@@ -62,7 +66,7 @@ function DefineDisplay(mode, display, setIndex, set, handleUpdateMode) {
         <div className={styles.list}>
           {
             set[setIndex].english.map((word, count) =>
-              <p> ({count + 1}) {word} </p>
+              <p key={count} className={styles.word}> {word} </p>
             )
           }
         </div>
@@ -75,7 +79,7 @@ function DefineDisplay(mode, display, setIndex, set, handleUpdateMode) {
         <div className={styles.list}>
           {
             set[setIndex].russian.map((word, count) =>
-            <p> ({count + 1}) { word } </p>
+            <p key={count} className={styles.word}>  { word } </p>
             )
           }
         </div>

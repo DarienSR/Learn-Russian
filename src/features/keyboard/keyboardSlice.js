@@ -4,20 +4,14 @@ export const keyboardSlice = createSlice({
   name: "keyboard",
   initialState: { 
     selectedKey: "",
-    answer: [],
+    userAnswer: "",
     keyboardType: 0,
   },
   reducers: {
     highlight: (state, action) => {
-      state.selectedKey = action.payload;
-      state.answer.push(action.payload)
-    },
-    addToAnswer: (state) => {
-      state.answer.push(state.selectedKey)
-    },
-    subtractFromAnswer: (state) => {
-      // remove the last character from the word
-      state.answer.pop();
+      // get the last key pressed for highlighting on the keyboard
+      state.selectedKey = action.payload.slice(-1);
+      state.userAnswer = action.payload;
     },
     toggleKeyboard: (state) => {
       if(state.keyboardType === 2) {
@@ -28,16 +22,16 @@ export const keyboardSlice = createSlice({
       state.keyboardType++;
     },
     resetAnswer: (state) => {
-      state.answer = [];
+      state.userAnswer = "";
     }
   }
 });
 
-export const { highlight, subtractFromAnswer, toggleKeyboard, resetAnswer } = keyboardSlice.actions;
+export const { highlight, toggleKeyboard, resetAnswer} = keyboardSlice.actions;
 
 // being pulled from our store
 export const selectKey = state => state.keyboard.selectedKey;
-export const answer = state => state.keyboard.answer;
+export const userAnswer = state => state.keyboard.userAnswer;
 export const keyboardType = state => state.keyboard.keyboardType;
 
 export default keyboardSlice.reducer;
