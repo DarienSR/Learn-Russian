@@ -26,14 +26,14 @@ export function Keyboard() {
   let userInput = useSelector(userAnswer);
 
   function useInput({ type /*...*/ }) {
-    let [value, setValue] = useState("");
+    let [value] = useState("");
     // update answer and highlight most recently pressed key
     const input = <input id={styles.input} value={userInput} onChange={e => dispatch(highlight(e.target.value))} type={type} />;
 
-
+    console.log(userInput, answer)
     // check to see if input is correct.
     if(userInput === answer) {
-      dispatch(validate(userInput));
+      dispatch(validate({ans: userInput}));
       // reset input to blank
       dispatch(resetAnswer());
     }
@@ -43,8 +43,6 @@ export function Keyboard() {
   const handleKeyboardToggle = () => {
     dispatch(toggleKeyboard());
   }
-
-
 
   const keys = layout.map((row) =>
     <div 

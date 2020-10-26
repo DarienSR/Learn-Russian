@@ -1,0 +1,44 @@
+
+.navbar {
+  width: 100vw;
+  background-color: red;
+  display: flex;
+  justify-content: space-between;
+}
+
+.company, .translation, .options {
+  width: 33%;
+}
+
+.navbar h1 {
+  width: 35%;
+  margin: 0;
+  padding: 1rem 2.5rem;
+  font-size: 2rem;
+  color: white;
+  background-color: black;
+}
+
+
+.options button, .translation button {
+  height: 100%;
+  width: 10vw;
+  font-size: 1rem;
+  background-color: red;
+  border: none;
+  color: white;
+  outline: none;
+}
+
+.translation button { 
+  color:black;
+}
+
+.options button {
+  margin-right: 0.2rem;
+}
+
+.options button:hover, .translation button:hover {
+ cursor: pointer;
+ background-color: royalblue;
+}

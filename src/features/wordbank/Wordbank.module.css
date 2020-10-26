@@ -1,6 +1,6 @@
 #Wordbank {
   width: 50%;
-  height: 40vh;
+  height: 30vh;
   margin: 5vh;
 }
 
@@ -9,9 +9,14 @@
   margin: 0.2rem;
 }
 
-.secondaryText {
-
+.translationOptions {
+  display: flex;
 }
+
+.translationOptions p {
+  margin: 0;
+}
+
 
 .list {
   display: flex;
@@ -27,16 +32,11 @@
   margin: 0.5rem;
   width: 45%;
   justify-content: space-evenly;
-}
-
-.button {
+  background-color: white;
   font-size: 1.5rem;
-  padding: 0.5rem;
-  background-color: aliceblue;
   cursor: pointer;
 }
 
-.button:hover {
-  background-color: blanchedalmond;
-}
+
+
 

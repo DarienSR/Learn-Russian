@@ -1,6 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { resetAnswer } from "../keyboard/keyboardSlice";
-
 
 export const wordbankSlice = createSlice({
   name: "wordbank",
@@ -8,7 +6,9 @@ export const wordbankSlice = createSlice({
     set: GenerateSet(0),
     setIndex: 0,
     mode: 0,
-    answer: null
+    answer: GenerateSet(0)[0].russian,
+    showTranslation: true,
+
   },
   reducers: {
     UpdateMode: (state, action) => {
@@ -18,12 +18,15 @@ export const wordbankSlice = createSlice({
       state.mode = action.payload;      
       state.answer = state.mode === 0 ? state.set[state.setIndex].russian : state.set[state.setIndex].answer;
     },
+    ToggleTranslation: (state) => {
+      state.showTranslation = !state.showTranslation;
+    },
 
     validate: (state, action) => {
       let verifyAnswer;
-
+        console.log(action.payload.ans)
       state.mode === 0 ? verifyAnswer = state.set[state.setIndex].russian : verifyAnswer = state.set[state.setIndex].answer;
-      if(action.payload === verifyAnswer) {
+      if(action.payload.ans === verifyAnswer) {
         // Move on to the next question.
         if(state.setIndex < state.set.length - 1) {
           state.setIndex++;
@@ -33,18 +36,23 @@ export const wordbankSlice = createSlice({
           state.answer = state.mode === 0 ? state.set[state.setIndex].russian : state.set[state.setIndex].answer;
         }
         // Notify whether it is correct or wrong. 
+        
       }
+
+      if(state.mode !== 0)
+        action.payload.btn.style.backgroundColor = 'red';
     }
   },
 
 });
 
-export const { UpdateMode, handleChange, validate } = wordbankSlice.actions;
+export const { UpdateMode, ToggleTranslation, handleChange, validate } = wordbankSlice.actions;
 
 export const Set = state => state.wordbank.set;
 export const SetIndex = state => state.wordbank.setIndex;
 export const Mode = state => state.wordbank.mode;
 export const Answer = state => state.wordbank.answer;
+export const ShowTranslation = state => state.wordbank.showTranslation;
 
 
 export default wordbankSlice.reducer;
