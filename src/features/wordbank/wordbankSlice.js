@@ -38,8 +38,10 @@ export const wordbankSlice = createSlice({
       }
 
       // If you are not in mode 0 (typing), update selected answer to be wrong.
-      if(state.mode !== 0)
-        action.payload.btn.style.backgroundColor = 'red';
+
+      // Disabled because for some reason the bg color was not being reset when project was built. Works fine when ran locally.
+      //if(state.mode !== 0)
+        //action.payload.btn.style.backgroundColor = 'red';
     }
   },
 

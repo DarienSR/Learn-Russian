@@ -25,7 +25,7 @@ export function Wordbank() {
     let verifyAnswer;
     mode === 0 ? verifyAnswer = set[setIndex].russian : verifyAnswer = set[setIndex].answer;
     
-    // reset wrong answers to their normal background color on switch to next question set.
+    // reset wrong answers to their normal background color on switch to next question set. This doesn't seem to work in production, but works offline...
     if(e.target.value === verifyAnswer) {
       for(let btn of list) {
         btn.style.backgroundColor = 'white'
