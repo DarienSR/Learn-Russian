@@ -15,8 +15,12 @@
 
 .translationOptions p {
   margin: 0;
+  font-size: 1rem !important;
 }
 
+.progress {
+  margin: 0;
+}
 
 .list {
   display: flex;

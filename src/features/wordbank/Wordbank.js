@@ -18,17 +18,14 @@ export function Wordbank() {
   const mode = useSelector(Mode);
   const showTranslation = useSelector(ShowTranslation);
 
-
-  
   const handleValidation = (e) => {
     let list = document.getElementsByClassName('Wordbank_word__1YhBy')
     dispatch(validate({ans: e.target.value, btn: e.target, list}))
 
     let verifyAnswer;
     mode === 0 ? verifyAnswer = set[setIndex].russian : verifyAnswer = set[setIndex].answer;
-
-    console.log(verifyAnswer === e.target.value)
     
+    // reset wrong answers to their normal background color on switch to next question set.
     if(e.target.value === verifyAnswer) {
       for(let btn of list) {
         btn.style.backgroundColor = 'white'
@@ -40,13 +37,13 @@ export function Wordbank() {
   let display; // if we put on same line, initialization error.
   display = DefineDisplay(mode, display, setIndex, set, handleValidation);
   
-
-
   let translationText = showTranslation === true && mode === 0 ? set[setIndex].english : ""
-
+  let progress = `${ setIndex+1 } / ${ set.length }`
+  
   return (
     <div id={styles.Wordbank}>
-      <p className={styles.secondaryText}>
+      <p className={ styles.progress }>{ progress }</p>
+      <p className={ styles.secondaryText }>
         { translationText }  
       </p> 
       { display } 

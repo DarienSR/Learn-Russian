@@ -28,7 +28,7 @@ export function Keyboard() {
   function useInput({ type /*...*/ }) {
     let [value] = useState("");
     // update answer and highlight most recently pressed key
-    const input = <input id={styles.input} value={userInput} onChange={e => dispatch(highlight(e.target.value))} type={type} />;
+    const input = <input autoComplete="off" id={styles.input} value={userInput} onChange={e => dispatch(highlight(e.target.value))} type={type} />;
 
     console.log(userInput, answer)
     // check to see if input is correct.
