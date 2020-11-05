@@ -30,7 +30,7 @@ export function Keyboard() {
     // update answer and highlight most recently pressed key
     const input = <input autoComplete="off" id={styles.input} value={userInput} onChange={e => dispatch(highlight(e.target.value))} type={type} />;
 
-    console.log(userInput, answer)
+  
     // check to see if input is correct.
     if(userInput === answer) {
       dispatch(validate({ans: userInput}));
@@ -76,6 +76,7 @@ export function Keyboard() {
       </div>
 
       <button onClick={handleKeyboardToggle}>Toggle Keyboard</button>
+      <p className={styles.note}>Must have russian keyboard enabled</p>
     </div>
   );
 }
